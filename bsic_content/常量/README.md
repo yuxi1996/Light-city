@@ -2,7 +2,9 @@
 常类型是指使用类型修饰符const说明的类型，常类型的变量或对象的值是不能被更新的。
 # 2.const作用
   * 可以定义常量
+  * ```c++
     const int a = 100；
+    ```
   * 类型检查
     const常量与#define宏定义常量的区别：
       ~ const常量具有类型，编译器可以进行安全检查；#define宏定义没有数据类型，只是简单的字符串替换，不能进行安全检查。
@@ -12,7 +14,7 @@
      
       其他情况下它只是一个 const 限定的变量，不要将与常量混淆。
 * 防止修改，起保护作用，增加程序健壮性      
-```
+```c++
 void f(const int i){
   i++; //error
 }
@@ -24,7 +26,7 @@ void f(const int i){
 
 注意：非const变量默认为extern。要使const变量能够在其他文件中访问，必须在文件中显式地指定它为extern。
 > 未被const修饰的变量在不同文件的访问
-```
+```c++
 //fole1.cpp
 int ext;
 //file2.cpp
@@ -37,7 +39,7 @@ int main(){
 }
 ```
 >const常量在不同的文件中访问
-```
+```c++
 //extern_file`.cpp
 extern const int ext=12;
 //extern_file2.cpp
@@ -52,7 +54,7 @@ int main(){
 > 而const常量需要显式声明extern，并且需要做初始化！
 > 因为常量在定义后就不能被修改，所以定义时必须初始化。
 # 4.定义常量
-```
+```c++
 const int b = 10;
 b = 0; //error read_only "b"
 const string s  = "hello world!";
@@ -65,7 +67,7 @@ const int i,j = 0;//error i must be initalized
 # 5.指针与const
 
 与指针相关的const一共有四种：
-```
+```c++
 const char * a;//只想const的对象类型的指针，或者说指向常量的指针
 char const * a；//同上
 char * const a ；//质量类型对象的const指针。或者说常指针、const指针。
