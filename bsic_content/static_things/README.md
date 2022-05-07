@@ -70,7 +70,7 @@ cout << obj1.i<<" "<<obj2.i;
 } 
 ```
 您可以在上面的程序中看到我们已经尝试为多个对象创建静态变量i的多个副本。但这并没有发生。因此，类中的静态变量应由用户使用类外的类名和范围解析运算符显式初始化，如下所示：
-
+```c++
 #include<iostream> 
 using namespace std; 
 
@@ -93,16 +93,18 @@ int main()
 	// prints value of i 
 	cout << obj.i; 
 } 
+```
 输出：
-
+```c++
 1
-静态成员
+```
+`静态成员`
 
-类对象为静态
+* 类对象为静态
 就像变量一样，对象也在声明为static时具有范围，直到程序的生命周期。
 
 考虑以下程序，其中对象是非静态的。
-
+```
 #include<iostream> 
 using namespace std; 
 
@@ -131,12 +133,12 @@ int main()
 	cout << "End of main\n"; 
 } 
 输出：
-
-Inside Constructor
-Inside Destructor
-End of main
+这里与作者说的操作起来不同。
+>Inside Constructor
+>Inside Destructor
+>End of main
 在上面的程序中，对象在if块内声明为非静态。因此，变量的范围仅在if块内。因此，当创建对象时，将调用构造函数，并且在if块的控制权越过析构函数的同时调用，因为对象的范围仅在声明它的if块内。 如果我们将对象声明为静态，现在让我们看看输出的变化。
-
+```c++
 #include<iostream> 
 using namespace std; 
 
@@ -164,18 +166,20 @@ int main()
 	} 
 	cout << "End of main\n"; 
 } 
+```
 输出：
-
+```c++
 Inside Constructor
 End of main
 Inside Destructor
+```
 您可以清楚地看到输出的变化。现在，在main结束后调用析构函数。这是因为静态对象的范围是贯穿程序的生命周期。
 
-类中的静态函数
+* 类中的静态函数
 就像类中的静态数据成员或静态变量一样，静态成员函数也不依赖于类的对象。我们被允许使用对象和'.'来调用静态成员函数。但建议使用类名和范围解析运算符调用静态成员。
 
 允许静态成员函数仅访问静态数据成员或其他静态成员函数，它们无法访问类的非静态数据成员或成员函数。
-
+```c++
 #include<iostream> 
 using namespace std; 
 
@@ -195,11 +199,13 @@ int main()
     // invoking a static member function 
     Apple::printMsg(); 
 } 
+```
 输出：
-
+```c++
 Welcome to Apple!
-限定访问范围 static还有限定访问范围的作用（类似于匿名名字空间）。来自issue:#142
-
+```
+`限定访问范围 static还有限定访问范围的作用（类似于匿名名字空间）。来自issue:#142`
+```c++
 // source1.cpp
 extern void sayHello();
 const char* msg = "Hello World!\n";
@@ -216,8 +222,11 @@ void sayHello()
 {
     printf("%s", msg);
 }
-g++对于上面两个代码文件是可以正常编译并且打印Hello World!，但如果给source1.cpp中的msg加上static，则会导致undefined reference to 'msg'的编译错误：
-
+```
+g++对于上面两个代码文件是可以正常编译并且打印Hello World!
+        * 其实不能
+	* 但如果给source1.cpp中的msg加上static，则会导致undefined reference to 'msg'的编译错误：
+```c++
 // source1.cpp
 extern void sayHello();
 static const char* msg = "Hello World!\n";
@@ -226,3 +235,4 @@ int main()
     sayHello();
     return 0;
 }
+```
